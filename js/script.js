@@ -38,26 +38,42 @@ function getMoney(userData, bankData) {
     }
   })
     .then((userData) => {
-      const currency = prompt(
-        "Введите название валюты в формате USD, EUR, UAH, BIF, AOA:"
-      ).toUpperCase();
+      let isValidCurrency = false;
+      let currency;
 
-      if (!userData[currency]) {
-        console.log("Неверная валюта. Пожалуйста, введите актуальную валюту.");
-        throw { userData, bankData };
+      while (!isValidCurrency) {
+        currency = prompt(
+          "Введите название валюты в формате USD, EUR, UAH, BIF, AOA:"
+        ).toUpperCase();
+
+        if (userData[currency]) {
+          isValidCurrency = true;
+        } else {
+          console.log(
+            "Неверная валюта. Пожалуйста, введите актуальную валюту."
+          );
+        }
       }
 
       console.log(`Баланс составляет: ${userData[currency]} ${currency}`);
       return userData;
     })
     .catch(({ userData, bankData }) => {
-      const withdrawalCurrency = prompt(
-        "Введите название валюты в формате USD, EUR, UAH, BIF, AOA:"
-      ).toUpperCase();
+      let isValidWithdrawalCurrency = false;
+      let withdrawalCurrency;
 
-      if (!userData[withdrawalCurrency]) {
-        console.log("Неверная валюта. Пожалуйста, введите актуальную валюту.");
-        throw { userData, bankData };
+      while (!isValidWithdrawalCurrency) {
+        withdrawalCurrency = prompt(
+          "Введите название валюты в формате USD, EUR, UAH, BIF, AOA:"
+        ).toUpperCase();
+
+        if (userData[withdrawalCurrency]) {
+          isValidWithdrawalCurrency = true;
+        } else {
+          console.log(
+            "Неверная валюта. Пожалуйста, введите актуальную валюту."
+          );
+        }
       }
 
       const amount = parseFloat(
